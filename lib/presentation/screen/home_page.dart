@@ -46,76 +46,110 @@ class _HomePageState extends State<HomePage> {
       child: SafeArea(
         child: Scaffold(
           body: Container(
-            width: double.infinity,
-            height: double.infinity,
+            // width: double.infinity,
+            // height: double.infinity,
             decoration: const BoxDecoration(color: primaryColor),
-            child: Stack(
-              children: [
-                backSection(context),
-                StarWidget(
-                  top: 80,
-                  right: MediaQuery.of(context).size.width / 11.5,
-                  size: 10,
-                ),
-                StarWidget(
-                  top: 180,
-                  right: MediaQuery.of(context).size.width / 10,
-                  size: 10,
-                ),
-                StarWidget(
-                  top: 140,
-                  right: MediaQuery.of(context).size.width / 4.5,
-                  size: 12,
-                ),
-                StarWidget(
-                  top: 40,
-                  right: MediaQuery.of(context).size.width / 3.5,
-                  size: 5,
-                ),
-                StarWidget(
-                  top: 80,
-                  right: MediaQuery.of(context).size.width / 2,
-                  size: 16,
-                ),
-                StarWidget(
-                  top: 120,
-                  right: MediaQuery.of(context).size.width / 1.4,
-                  size: 8,
-                ),
-                StarWidget(
-                  top: 70,
-                  right: MediaQuery.of(context).size.width / 1.15,
-                  size: 4,
-                ),
-                StarWidget(
-                  top: 160,
-                  right: MediaQuery.of(context).size.width / 1.10,
-                  size: 12,
-                ),
-                frontSection(context),
-              ],
+            child: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  backSection(context),
+                  // StarWidget(
+                  //   top: 80,
+                  //   right: MediaQuery.of(context).size.width / 11.5,
+                  //   size: 10,
+                  // ),
+                  // StarWidget(
+                  //   top: 180,
+                  //   right: MediaQuery.of(context).size.width / 10,
+                  //   size: 10,
+                  // ),
+                  // StarWidget(
+                  //   top: 140,
+                  //   right: MediaQuery.of(context).size.width / 4.5,
+                  //   size: 12,
+                  // ),
+                  // StarWidget(
+                  //   top: 40,
+                  //   right: MediaQuery.of(context).size.width / 3.5,
+                  //   size: 5,
+                  // ),
+                  // StarWidget(
+                  //   top: 80,
+                  //   right: MediaQuery.of(context).size.width / 2,
+                  //   size: 16,
+                  // ),
+                  // StarWidget(
+                  //   top: 120,
+                  //   right: MediaQuery.of(context).size.width / 1.4,
+                  //   size: 8,
+                  // ),
+                  // StarWidget(
+                  //   top: 70,
+                  //   right: MediaQuery.of(context).size.width / 1.15,
+                  //   size: 4,
+                  // ),
+                  // StarWidget(
+                  //   top: 160,
+                  //   right: MediaQuery.of(context).size.width / 1.10,
+                  //   size: 12,
+                  // ),
+                  frontSection(context),
+                  Container(
+                    height: MediaQuery.of(context).size.height,
+                  ),
+                ],
+              ),
             ),
+            //   child: Container(
+            // color: Colors.grey,
+            // ),
           ),
         ),
       ),
     );
+
+    //   return AnnotatedRegion<SystemUiOverlayStyle>(
+    //     value: const SystemUiOverlayStyle(statusBarColor: primaryColor),
+    //     child: SafeArea(
+    //       child: MaterialApp(
+    //         home: Scaffold(
+    //           body: Container(
+    //             decoration: const BoxDecoration(color: primaryColor),
+    //             child: SingleChildScrollView(
+    //                 child: Stack(
+    //               children: [
+    //                 backSection(context),
+    //                 frontSection(context),
+    //                 Container(
+    //                   height: MediaQuery.of(context).size.height,
+    //                 ) // Tambah Container agar bug tinggi bisa diakali
+    //               ],
+    //             )),
+    //           ),
+    //         ),
+    //       ),
+    //     ),
+    //   );
   }
 
   Positioned frontSection(BuildContext context) {
     return Positioned(
       top: MediaQuery.of(context).size.height / 2.525,
+      // top: 0,
       left: 0,
       right: 0,
       child: Container(
         width: double.infinity,
-        height: MediaQuery.of(context).size.height / 2,
+        // height: MediaQuery.of(context).size.height / 2,
+        height: 500, //TODO HARDCODE ANGKA 500 KARENA BIKIN OVERFLOW
         color: primaryColor,
         padding: const EdgeInsets.only(top: 4),
         child: Padding(
           padding: const EdgeInsets.only(top: 8),
           child: Container(
             width: double.infinity,
-            height: double.infinity,
+            height: double.infinity, //TODO INI GK WORK HEIGHTNYA
+            // height: 0,
             decoration: const BoxDecoration(
               color: secondaryColor,
               borderRadius: BorderRadius.only(
@@ -130,6 +164,7 @@ class _HomePageState extends State<HomePage> {
               bottom: 8,
             ),
             child: Column(
+              //TODO : INI BIKIN OVERFLOW
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
