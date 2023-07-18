@@ -15,7 +15,7 @@ class Repository {
   final quranBaseUrl = 'https://apimuslimify.vercel.app/api/v2';
   final shalahBaseUrl = 'https://api.myquran.com/v1';
   final videoBaseUrl = 'www.googleapis.com';
- 
+
   Future<List<Surah>> getSurahList() async {
     final response = await http.get(Uri.parse('$quranBaseUrl/surah'));
 
@@ -38,6 +38,28 @@ class Repository {
   Future<Surah> getSurahByNumber({required String surahNumber}) async {
     Map<String, String> parameter = {
       'number': surahNumber,
+    };
+
+    final response = await http.get(
+      Uri.https('apimuslimify.vercel.app', '/api/v2/surah', parameter),
+    );
+
+    try {
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final surah = Surah.fromJson(data['data']);
+        return surah;
+      } else {
+        throw Exception('Failed to load surah');
+      }
+    } on SocketException {
+      throw Exception('No Internet connection');
+    }
+  }
+
+  Future<Surah> getSurahByName({required String surahName}) async {
+    Map<String, String> parameter = {
+      'name': surahName,
     };
 
     final response = await http.get(
@@ -212,5 +234,4 @@ class Repository {
       throw Exception('No Internet connection');
     }
   }
-
 }
