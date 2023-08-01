@@ -33,55 +33,55 @@ class _NavigationWidgetState extends State<NavigationWidget> {
       onWillPop: () async => false,
       child: Scaffold(
         body: _widgetOptions.elementAt(_selectedIndex),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          elevation: 0,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          backgroundColor: secondaryColor,
-          selectedItemColor: primaryColor,
-          unselectedItemColor: tertiaryColor.withOpacity(.5),
-          items: [
-            _selectedIndex == 0
-                ? const BottomNavigationBarItem(
-                    icon: Icon(Bootstrap.house_fill),
-                    label: 'Home',
-                  )
-                : const BottomNavigationBarItem(
-                    icon: Icon(Bootstrap.house),
-                    label: 'Home',
-                  ),
-            _selectedIndex == 1
-                ? const BottomNavigationBarItem(
-                    icon: Icon(Bootstrap.search_heart_fill),
-                    label: 'Quran',
-                  )
-                : const BottomNavigationBarItem(
-                    icon: Icon(Bootstrap.search_heart),
-                    label: 'Quran',
-                  ),
-            _selectedIndex == 2
-                ? const BottomNavigationBarItem(
-                    icon: Icon(Bootstrap.play_circle_fill),
-                    label: 'Hadith',
-                  )
-                : const BottomNavigationBarItem(
-                    icon: Icon(Bootstrap.play_circle),
-                    label: 'Video',
-                  ),
-            _selectedIndex == 3
-                ? const BottomNavigationBarItem(
-                    icon: Icon(Bootstrap.person_fill),
-                    label: 'Video',
-                  )
-                : const BottomNavigationBarItem(
-                    icon: Icon(Bootstrap.person),
-                    label: 'Profile',
-                  ),
-          ],
-        ),
+        // bottomNavigationBar: BottomNavigationBar(
+        //   type: BottomNavigationBarType.fixed,
+        //   currentIndex: _selectedIndex,
+        //   onTap: _onItemTapped,
+        //   elevation: 0,
+        //   showSelectedLabels: false,
+        //   showUnselectedLabels: false,
+        //   backgroundColor: secondaryColor,
+        //   selectedItemColor: primaryColor,
+        //   unselectedItemColor: tertiaryColor.withOpacity(.5),
+        //   items: [
+        //     _selectedIndex == 0
+        //         ? const BottomNavigationBarItem(
+        //             icon: Icon(Bootstrap.house_fill),
+        //             label: 'Home',
+        //           )
+        //         : const BottomNavigationBarItem(
+        //             icon: Icon(Bootstrap.house),
+        //             label: 'Home',
+        //           ),
+        //     _selectedIndex == 1
+        //         ? const BottomNavigationBarItem(
+        //             icon: Icon(Bootstrap.search_heart_fill),
+        //             label: 'Quran',
+        //           )
+        //         : const BottomNavigationBarItem(
+        //             icon: Icon(Bootstrap.search_heart),
+        //             label: 'Quran',
+        //           ),
+        //     _selectedIndex == 2
+        //         ? const BottomNavigationBarItem(
+        //             icon: Icon(Bootstrap.play_circle_fill),
+        //             label: 'Hadith',
+        //           )
+        //         : const BottomNavigationBarItem(
+        //             icon: Icon(Bootstrap.play_circle),
+        //             label: 'Video',
+        //           ),
+        //     _selectedIndex == 3
+        //         ? const BottomNavigationBarItem(
+        //             icon: Icon(Bootstrap.person_fill),
+        //             label: 'Video',
+        //           )
+        //         : const BottomNavigationBarItem(
+        //             icon: Icon(Bootstrap.person),
+        //             label: 'Profile',
+        //           ),
+        //   ],
+        // ),
       ),
     );
   }

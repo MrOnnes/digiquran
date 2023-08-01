@@ -37,7 +37,7 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Digi',
+              'Nusantara',
               style: firaSansH1.copyWith(color: secondaryColor, fontSize: 40),
             ),
             const HorizontalGap5(),
@@ -47,7 +47,7 @@ class _SplashPageState extends State<SplashPage> {
               ),
               padding: const EdgeInsets.all(2),
               child: Text(
-                'Quran',
+                'Muslim',
                 style: firaSansH1.copyWith(color: primaryColor, fontSize: 40),
               ),
             ),

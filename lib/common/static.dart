@@ -33,6 +33,6 @@ final List featuresNav = [
   QuranPage.routeName,
   AsmaulHusnaPage.routeName,
   QiblaPage.routeName,
-  QuranPage.routeName,
+  QuranPage.routeName, //ini harusnya HaditsPage tapi belum rilis
   DuaPage.routeName,
 ];
