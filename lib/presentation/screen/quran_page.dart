@@ -31,7 +31,6 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
       surahLatin.add(item.latin.toString());
       surahTransliteration.add(item.transliteration.toString());
     }
-    // debugPrint(surahLatin[0]);
 
     return surahLatin;
   }
@@ -77,39 +76,13 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
         filteredLiteration = surahTransliteration
             .where((data) => data.toLowerCase().contains(query.toLowerCase()))
             .toList();
-
-        // for (var i = 0; i < surahTransliteration.length; i++) {
-        //   if (filteredLiteration.contains(surahTransliteration[i])) {
-        //     filteredList.add(surahLatin[i]);
-        //   }
-        // }
         for (var i = 0; i < surahTransliteration.length; i++) {
           if (filteredLiteration.contains(surahTransliteration[i])) {
-            // debugPrint('hasil dari for ${surahLatin[i]}');
             enhancedFilterList.add(surahLatin[i]);
-            // debugPrint(
-            //     'enhancedFilterList: ${enhancedFilterList}, length ${enhancedFilterList.length}');
             filteredList = enhancedFilterList;
           }
         }
-
-        debugPrint(
-            'filteredList: ${filteredList}, length ${filteredList.length}');
-        debugPrint(
-            'filteredLiteration: ${filteredLiteration}, length ${filteredLiteration.length}');
-        // debugPrint(
-        //     'filteredList: ${filteredList.where((item) => filter.)}');
-
-        // surahTransliteration = filteredTransliteration;
-        // filteredList = filteredList
-        //     .where((item) => filteredTransliteration.contains(item))
-        //     .toList();
-        // filteredList = surahLatin;
       });
-      // debugPrint('length filter adalah: ${filter.length.toString()}');
-      // debugPrint(
-      //     'length filteredList adalah: ${filteredList.length.toString()}');
-      // debugPrint('list filter: ${filter[tabController.index]}');
     } else {
       debugPrint('query is empty');
       setState(() {
