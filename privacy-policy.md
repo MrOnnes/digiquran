@@ -1,48 +1,39 @@
-Privacy Policy for Nusantara Muslim Application
+<h1>Privacy Policy for Nusantara Muslim</h1>
 
 Effective Date: 1 August 2023
 
-Thank you for choosing Nusantara Muslim ("the App"). This Privacy Policy is intended to inform you about how we collect, use, and disclose your personal information when you use our application.
+We, Senno Adi Prakoso, value your privacy and are committed to protecting your personal information. This Privacy Policy specifically covers user privacy related to the use of location access permission in our app, Nusantara Muslim.
 
-1. Non-Editable Policy:
-   This Privacy Policy is non-editable and has been formulated to ensure your privacy rights are protected while using our App.
+<h3>Information We Collect:</h3>
 
-2. App Reference:
-   This Privacy Policy specifically applies to the Nusantara Muslim Application and governs the use of personal information collected within the App.
+Our app collects location data to enable the following features:
 
-3. User Privacy:
-   We are committed to protecting your privacy and ensuring the confidentiality of your personal information. This Privacy Policy outlines the type of information we may collect and how it is utilized.
+1. Automated Prayer Time Update: To provide accurate prayer timings based on your current location, even when the app is closed or not in use.
 
-4. Location Access Permission:
-   The App requests access to your device's location solely for providing location-based features such as prayer time calculations and nearby mosque locations. We do not use your location data for any other purpose without your explicit consent.
+2. Qibla Direction Detection: To activate the compass feature and determine the Qibla direction, location data is required to calculate your exact geographical coordinates.
 
-5. Data Collection and Usage:
-   We may collect certain information from you when you use the App, including but not limited to:
+<h3>Usage of Location Data:</h3>
 
-- Personal Information: Your name, email address, and other relevant details provided by you during registration or account setup.
+The location data collected is solely used for the functionalities mentioned above and is not shared with any third parties for marketing or advertising purposes. We do not track your location beyond what is required for the app's designated features.
 
-- Device Information: Information about your device, such as its model, operating system, and unique device identifiers, to enhance the App's performance and user experience.
+<h3>Prominent Disclosure:</h3>
 
-- Location Information: Your device's location data, with your explicit permission, to offer location-based services as mentioned above.
+We want to inform you that our app collects location data to enable the mentioned features even when the app is closed or not in use. This data is also used to provide ads/support advertising/support ads, if applicable.
 
-- Usage Data: Data about your interaction with the App, such as the features you use and the time spent on the App, to improve our services.
+<h3>Data Security:</h3>
 
-6. Data Sharing:
-   We do not sell, lease, or share your personal information with third parties without your consent, except as required by law or to provide our services effectively. However, we may share anonymized and aggregated data for analytical purposes.
+We take appropriate measures to safeguard your location data and protect it from unauthorized access or disclosure. Your location information is stored securely and is accessible only to authorized personnel.
 
-7. Links to Third-Party Websites:
-   The App may contain links to third-party websites or services. We are not responsible for the privacy practices or content of these external sites. Please review their privacy policies when accessing them through our App.
+<h3>Access and Control:</h3>
 
-8. Data Security:
-   We implement industry-standard security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction.
+You have the right to control your location settings. You can choose to grant or revoke location access through the device settings or within the app itself.
 
-9. Updates to Privacy Policy:
-   We may update this Privacy Policy from time to time. Any changes will be communicated within the App, and it is your responsibility to review the policy periodically.
+<h3>Changes to the Privacy Policy:</h3>
 
-Please ensure to read this Privacy Policy carefully before using the Nusantara Muslim Application. By using the App, you agree to the practices described in this policy. If you do not agree with this policy, please refrain from using the App.
+We may update this Privacy Policy from time to time. Any changes will be posted on this page, and the "Effective Date" will be revised accordingly.
 
-If you have any questions or concerns regarding our Privacy Policy, please contact us at senno.adi2509@gmail.com.
+<h3>Contact Us:</h3>
 
-By downloading and using the Nusantara Muslim Application, you acknowledge that you have read and understood this Privacy Policy and consent to the collection, use, and disclosure of your personal information as outlined herein.
+If you have any questions or concerns about our Privacy Policy or how we handle your personal information, please contact us at senno.adi2509@gmail.com.
 
-[End of Privacy Policy]
+By using our app, you agree to the terms of this Privacy Policy. Please read this policy carefully and ensure that you understand how your location data is used in our app.
