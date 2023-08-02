@@ -18,11 +18,12 @@ Future<Position> getCurrentLocation() async {
   }
 
   if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission != LocationPermission.whileInUse &&
-        permission != LocationPermission.always) {
-      throw 'Location permissions are denied.';
-    }
+    // permission = await Geolocator.requestPermission();
+    // if (permission != LocationPermission.whileInUse &&
+    //     permission != LocationPermission.always) {
+    //   throw 'Location permissions are denied.';
+    // }
+    // throw 'Location permission are denied';
   }
 
   return await Geolocator.getCurrentPosition();

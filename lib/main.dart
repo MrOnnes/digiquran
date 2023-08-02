@@ -1,6 +1,7 @@
 import 'package:digiquran/presentation/screen/asmaulhusna_page.dart';
 import 'package:digiquran/presentation/screen/dua_page.dart';
 import 'package:digiquran/presentation/screen/home_page.dart';
+import 'package:digiquran/presentation/screen/intro.dart';
 import 'package:digiquran/presentation/screen/qibla_page.dart';
 import 'package:digiquran/presentation/screen/quran_page.dart';
 import 'package:digiquran/presentation/screen/splash_page.dart';
@@ -26,6 +27,8 @@ class MyApp extends StatelessWidget {
         switch (settings.name) {
           case SplashPage.routeName:
             return MaterialPageRoute(builder: (context) => const SplashPage());
+          case Intro.routeName:
+            return MaterialPageRoute(builder: (context) => const Intro());
           case NavigationWidget.routeName:
             return MaterialPageRoute(
                 builder: (context) => const NavigationWidget());

@@ -20,6 +20,8 @@ import 'package:skeletons/skeletons.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   static const routeName = '/home-screen';
+  static String addressVariable = '';
+  static List shalahDataVariable = [];
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -28,8 +30,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool isLoading = true;
   String addressVar = '';
+  // String addressVar = HomePage.addressVariable;
   String timeId = '';
   List shalahData = [];
+  // List shalahData = HomePage.shalahDataVariable;
   HijriCalendar hijriToday = HijriCalendar.now();
   Stream<DateTime>? clockStream;
 
@@ -715,7 +719,6 @@ class _HomePageState extends State<HomePage> {
     getHijriDate();
     debugPrint('getHijriDate ${hijriToday.toString()}');
     getTime();
-    // debugPrint();
     getShalahSchedule().then((value) => debugPrint('getShalahSchedule $value'));
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
@@ -783,11 +786,12 @@ class _HomePageState extends State<HomePage> {
       });
       return shalahSchedule;
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error: $e'),
-        ),
-      );
+      ///dimatikan agar tidak ada error diawal
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text('getShalahSchedule Error: $e'),
+      //   ),
+      // );
       return [];
     }
   }
@@ -807,11 +811,12 @@ class _HomePageState extends State<HomePage> {
       });
       return address;
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error: $e'),
-        ),
-      );
+      /// dimatikan agar tidak muncul error di awal
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text('getLocation Error: $e'),
+      //   ),
+      // );
     }
   }
 
