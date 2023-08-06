@@ -15,6 +15,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeletons/skeletons.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,9 +38,106 @@ class _HomePageState extends State<HomePage> {
   HijriCalendar hijriToday = HijriCalendar.now();
   Stream<DateTime>? clockStream;
 
+  void checkPermission() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    LocationPermission permission;
+    bool? intro = (prefs.getBool('intro'));
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      debugPrint('checkPermission location active');
+      await prefs.setBool('intro', true);
+      debugPrint('status prefs: ${intro.toString()}');
+    } else {
+      debugPrint('checkPermision else $permission');
+      await prominentDisclosure();
+      await prefs.setBool('intro', false);
+    }
+
+    // await prominentDisclosure();
+    loadDone();
+  }
+
+  Future<void> prominentDisclosure() async {
+    AlertDialog prominentDisclosureAlert = AlertDialog(
+      title: const Text("Location Permission"),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+              'Nusantara Muslim collectes location data to enable Prayer Time, & Qibla Direction even when the app is closed or not in use, and it also used to support advertising'),
+//               Accurate Prayer Times: Enable location permission to get precise prayer times for your current location, ensuring timely and accurate prayers.
+
+// Real-time Qibla Direction: Grant location access to determine the Qibla direction specific to your location, allowing you to perform prayers with confidence and accuracy.
+          SizedBox(
+            height: 8,
+          ),
+          // Text(
+          //   'Prayer Time:',
+          //   style: TextStyle(fontWeight: FontWeight.bold),
+          // ),
+          RichText(
+            text: const TextSpan(
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.black,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                    text: 'Prayer Times: ',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(
+                  text:
+                      'Enable location permission to get precise prayer times for your current location, ensuring timely and accurate prayers.',
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          RichText(
+            text: const TextSpan(
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.black,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                    text: 'Qibla Direction: ',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(
+                  text:
+                      'Grant location access to determine the Qibla direction specific to your location, allowing you to perform prayers with confidence and accuracy.',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("No, Thanks")),
+        ElevatedButton(
+            // onPressed: () => Navigator.of(context).pop(),
+            onPressed: () async {
+              await Geolocator.requestPermission()
+                  .then((value) => Navigator.of(context).pop());
+            },
+            child: const Text("Turn On")),
+      ],
+    );
+
+    await showDialog(
+        context: context, builder: (context) => prominentDisclosureAlert);
+    return;
+  }
+
   @override
   void initState() {
-    loadDone();
+    checkPermission();
+    // loadDone();
     super.initState();
   }
 
@@ -73,92 +171,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             }),
-
-            // child: SingleChildScrollView(
-            //   child: Stack(
-            //     children: [
-            //       Image.asset(
-            //         'lib/assets/background.jpg',
-            //       ),
-            //       backSection(context),
-            //       // StarWidget(
-            //       //   top: 80,
-            //       //   right: MediaQuery.of(context).size.width / 11.5,
-            //       //   size: 10,
-            //       // ),
-            //       // StarWidget(
-            //       //   top: 180,
-            //       //   right: MediaQuery.of(context).size.width / 10,
-            //       //   size: 10,
-            //       // ),
-            //       // StarWidget(
-            //       //   top: 140,
-            //       //   right: MediaQuery.of(context).size.width / 4.5,
-            //       //   size: 12,
-            //       // ),
-            //       // StarWidget(
-            //       //   top: 40,
-            //       //   right: MediaQuery.of(context).size.width / 3.5,
-            //       //   size: 5,
-            //       // ),
-            //       // StarWidget(
-            //       //   top: 80,
-            //       //   right: MediaQuery.of(context).size.width / 2,
-            //       //   size: 16,
-            //       // ),
-            //       // StarWidget(
-            //       //   top: 120,
-            //       //   right: MediaQuery.of(context).size.width / 1.4,
-            //       //   size: 8,
-            //       // ),
-            //       // StarWidget(
-            //       //   top: 70,
-            //       //   right: MediaQuery.of(context).size.width / 1.15,
-            //       //   size: 4,
-            //       // ),
-            //       // StarWidget(
-            //       //   top: 160,
-            //       //   right: MediaQuery.of(context).size.width / 1.10,
-            //       //   size: 12,
-            //       // ),
-            //       frontSection(context),
-            //       // Container(
-            //       //   height: MediaQuery.of(context).size.height,
-            //       // ),
-            //     ],
-            //   ),
-            // ),
-
-            //   child: Container(
-            // color: Colors.grey,
-            // ),
           ),
         ),
       ),
     );
-
-    //   return AnnotatedRegion<SystemUiOverlayStyle>(
-    //     value: const SystemUiOverlayStyle(statusBarColor: primaryColor),
-    //     child: SafeArea(
-    //       child: MaterialApp(
-    //         home: Scaffold(
-    //           body: Container(
-    //             decoration: const BoxDecoration(color: primaryColor),
-    //             child: SingleChildScrollView(
-    //                 child: Stack(
-    //               children: [
-    //                 backSection(context),
-    //                 frontSection(context),
-    //                 Container(
-    //                   height: MediaQuery.of(context).size.height,
-    //                 ) // Tambah Container agar bug tinggi bisa diakali
-    //               ],
-    //             )),
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   );
   }
 
   Positioned frontSection(BuildContext context) {

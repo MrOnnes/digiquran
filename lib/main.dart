@@ -20,42 +20,52 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Nusantara Muslim',
-      initialRoute: SplashPage.routeName,
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case SplashPage.routeName:
-            return MaterialPageRoute(builder: (context) => const SplashPage());
-          case Intro.routeName:
-            return MaterialPageRoute(builder: (context) => const Intro());
-          case NavigationWidget.routeName:
-            return MaterialPageRoute(
-                builder: (context) => const NavigationWidget());
-          case HomePage.routeName:
-            return MaterialPageRoute(builder: (context) => const HomePage());
-          case QuranPage.routeName:
-            return MaterialPageRoute(builder: (context) => const QuranPage());
-          case DuaPage.routeName:
-            return MaterialPageRoute(builder: (context) => const DuaPage());
-          case AsmaulHusnaPage.routeName:
-            return MaterialPageRoute(
-                builder: (context) => const AsmaulHusnaPage());
-          case QiblaPage.routeName:
-            return MaterialPageRoute(builder: (context) => const QiblaPage());
-          case VideoPage.routeName:
-            return MaterialPageRoute(builder: (context) => const VideoPage());
-          case VideoPlayPage.routeName:
-            String id = settings.arguments as String;
-            return MaterialPageRoute(
-                builder: (context) => VideoPlayPage(
-                      videoID: id,
-                    ));
-          default:
-            return MaterialPageRoute(
-                builder: (context) => const NavigationWidget());
+        debugShowCheckedModeBanner: false,
+        title: 'Nusantara Muslim',
+        initialRoute: SplashPage.routeName,
+        routes: {
+          SplashPage.routeName: (context) => const SplashPage(),
+          Intro.routeName: (context) => const Intro(),
+          NavigationWidget.routeName: (context) => const NavigationWidget(),
+          HomePage.routeName: (context) => const HomePage(),
+          QuranPage.routeName: (context) => const QuranPage(),
+          DuaPage.routeName: (context) => const DuaPage(),
+          AsmaulHusnaPage.routeName: (context) => const AsmaulHusnaPage(),
+          QiblaPage.routeName: (context) => const QiblaPage(),
         }
-      },
-    );
+        // onGenerateRoute: (settings) {
+        //   switch (settings.name) {
+        //     case SplashPage.routeName:
+        //       return MaterialPageRoute(builder: (context) => const SplashPage());
+        //     case Intro.routeName:
+        //       return MaterialPageRoute(builder: (context) => const Intro());
+        //     case NavigationWidget.routeName:
+        //       return MaterialPageRoute(
+        //           builder: (context) => const NavigationWidget());
+        //     case HomePage.routeName:
+        //       return MaterialPageRoute(builder: (context) => const HomePage());
+        //     case QuranPage.routeName:
+        //       return MaterialPageRoute(builder: (context) => const QuranPage());
+        //     case DuaPage.routeName:
+        //       return MaterialPageRoute(builder: (context) => const DuaPage());
+        //     case AsmaulHusnaPage.routeName:
+        //       return MaterialPageRoute(
+        //           builder: (context) => const AsmaulHusnaPage());
+        //     case QiblaPage.routeName:
+        //       return MaterialPageRoute(builder: (context) => const QiblaPage());
+        //     case VideoPage.routeName:
+        //       return MaterialPageRoute(builder: (context) => const VideoPage());
+        //     case VideoPlayPage.routeName:
+        //       String id = settings.arguments as String;
+        //       return MaterialPageRoute(
+        //           builder: (context) => VideoPlayPage(
+        //                 videoID: id,
+        //               ));
+        //     default:
+        //       return MaterialPageRoute(
+        //           builder: (context) => const NavigationWidget());
+        //   }
+        // },
+        );
   }
 }

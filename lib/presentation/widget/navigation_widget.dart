@@ -13,6 +13,7 @@ class NavigationWidget extends StatefulWidget {
 }
 
 class _NavigationWidgetState extends State<NavigationWidget> {
+  var backPressCount = 0;
   int _selectedIndex = 0;
   final List _widgetOptions = [
     const HomePage(),
@@ -30,7 +31,22 @@ class _NavigationWidgetState extends State<NavigationWidget> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
+      // onWillPop: () async => false,
+      onWillPop: () async {
+        backPressCount++;
+
+        if (backPressCount == 2) {
+          // exit(0);
+          debugPrint('backPressCount $backPressCount');
+          return true;
+        } else {
+          var snackBar =
+              const SnackBar(content: Text('Press back again to exit'));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          // return false;
+          return false;
+        }
+      },
       child: Scaffold(
         body: _widgetOptions.elementAt(_selectedIndex),
         // bottomNavigationBar: BottomNavigationBar(

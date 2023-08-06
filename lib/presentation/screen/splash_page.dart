@@ -18,55 +18,46 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   // LocationPermission permission;
   void loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool seen = (prefs.getBool('intro') ?? false);
-    // permission = await Geolocator.checkPermission();
-    // if (permission == LocationPermission.always) {
-    //   await prefs.setBool('intro', true);
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // bool seen = (prefs.getBool('intro') ?? false);
+
+    // if (seen) {
+    //   await Future.delayed(const Duration(seconds: 3)).then((value) => {
+    //         Navigator.pushReplacementNamed(context, NavigationWidget.routeName),
+    //         // Navigator.pushReplacementNamed(context, Intro.routeName),
+    //       });
+    // } else {
+    //   // await prefs.setBool('intro', true);
+    //   await Future.delayed(const Duration(seconds: 3)).then((value) => {
+    //         // Navigator.pushReplacementNamed(context, NavigationWidget.routeName),
+    //         Navigator.pushReplacementNamed(context, Intro.routeName),
+    //       });
+    //   debugPrint('status _seen = $seen');
     // }
 
-    if (seen) {
-      await Future.delayed(const Duration(seconds: 3)).then((value) => {
-            Navigator.pushReplacementNamed(context, NavigationWidget.routeName),
-            // Navigator.pushReplacementNamed(context, Intro.routeName),
-          });
-    } else {
-      // await prefs.setBool('intro', true);
-      await Future.delayed(const Duration(seconds: 3)).then((value) => {
-            // Navigator.pushReplacementNamed(context, NavigationWidget.routeName),
-            Navigator.pushReplacementNamed(context, Intro.routeName),
-          });
-      debugPrint('status _seen = $seen');
-    }
-    // await Future.delayed(const Duration(seconds: 3)).then(
-    //   (value) => {
-    //     // if (_seen){
-    //     //   Navigator.pushReplacementNamed(context, NavigationWidget.routeName),
-    //     // }
-    //     // else{
-    //     //   Navigator.pushReplacementNamed(context, Intro.routeName),
-    //     // }
-    //     Navigator.pushReplacementNamed(context, NavigationWidget.routeName),
-    //   },
-    // );
+    await Future.delayed(const Duration(seconds: 3)).then(
+      (value) => {
+        Navigator.pushReplacementNamed(context, NavigationWidget.routeName),
+      },
+    );
 
-    debugPrint('status _seen = $seen');
+    // debugPrint('status _seen = $seen');
   }
 
-  void checkPermission() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    LocationPermission permission;
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse) {
-      debugPrint('checkPermission location active');
-      await prefs.setBool('intro', true);
-    } else {
-      debugPrint('checkPermision else $permission');
-      await prefs.setBool('intro', false);
-    }
-    loadData();
-  }
+  // void checkPermission() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   LocationPermission permission;
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.always ||
+  //       permission == LocationPermission.whileInUse) {
+  //     debugPrint('checkPermission location active');
+  //     await prefs.setBool('intro', true);
+  //   } else {
+  //     debugPrint('checkPermision else $permission');
+  //     await prefs.setBool('intro', false);
+  //   }
+  //   loadData();
+  // }
 
   @override
   void initState() {
@@ -75,8 +66,8 @@ class _SplashPageState extends State<SplashPage> {
     // if (permission == LocationPermission.always) {
     //   await prefs.setBool('intro', true);
     // }
-    checkPermission();
-    // loadData();
+    // checkPermission();
+    loadData();
   }
 
   @override

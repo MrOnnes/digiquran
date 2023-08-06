@@ -22,11 +22,13 @@ class _QiblaPageState extends State<QiblaPage> {
       StreamController<LocationStatus>.broadcast();
 
   Stream<LocationStatus> get stream => _locationStreamController.stream;
+
   Future<void> _checkLocationStatus() async {
     final locationStatus = await FlutterQiblah.checkLocationStatus();
     if (locationStatus.enabled &&
         locationStatus.status == LocationPermission.denied) {
-      await FlutterQiblah.requestPermissions();
+      //dimatikan karena jika request permission diawal ditolak, tidak perlu minta lagi
+      // await FlutterQiblah.requestPermissions();
       final s = await FlutterQiblah.checkLocationStatus();
       _locationStreamController.sink.add(s);
     } else {
@@ -102,11 +104,81 @@ class _QiblaPageState extends State<QiblaPage> {
                         height: MediaQuery.of(context).size.height,
                         child: StreamBuilder(
                           stream: stream,
+                          // builder: (context, snapshot) {
+                          //   if (snapshot.data!.enabled == true) {
+                          //     switch (snapshot.data!.status) {
+                          //       case LocationPermission.always:
+                          //       case LocationPermission.whileInUse:
+                          //         return const QiblahCompassWidget();
+
+                          //       case LocationPermission.denied:
+                          //         return const Center(
+                          //             child: Text(
+                          //           'Location service denied',
+                          //           style: TextStyle(color: secondaryColor),
+                          //         ));
+                          //       case LocationPermission.deniedForever:
+                          //         return const Text(
+                          //           'Location service denied forever, we cannot request permission',
+                          //         );
+                          //       default:
+                          //         return const Text('Unknown Error');
+                          //     }
+                          //   } else if (snapshot.connectionState ==
+                          //       ConnectionState.waiting) {
+                          //     return Stack(
+                          //       alignment: Alignment.center,
+                          //       children: [
+                          //         SizedBox(
+                          //           width: MediaQuery.of(context).size.width,
+                          //           height: MediaQuery.of(context).size.height,
+                          //           child: const CircularProgressIndicator(
+                          //             color: secondaryColor,
+                          //           ),
+                          //         ),
+                          //         const Text(
+                          //           'Location not found or denied',
+                          //           style: TextStyle(color: secondaryColor),
+                          //         )
+                          //       ],
+                          //     );
+                          //   } else {
+                          //     return Stack(
+                          //       alignment: Alignment.center,
+                          //       children: [
+                          //         SizedBox(
+                          //           width: MediaQuery.of(context).size.width,
+                          //           height: MediaQuery.of(context).size.height,
+                          //           child: const CircularProgressIndicator(
+                          //             color: secondaryColor,
+                          //           ),
+                          //         ),
+                          //         const Text(
+                          //           'Location not found or denied',
+                          //           style: TextStyle(color: secondaryColor),
+                          //         )
+                          //       ],
+                          //     );
+                          //   }
+                          // },
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return const CircularProgressIndicator(
-                                color: primaryColor,
+                              return Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.height,
+                                    child: const CircularProgressIndicator(
+                                      color: secondaryColor,
+                                    ),
+                                  ),
+                                  const Text(
+                                    'Location not found or denied',
+                                    style: TextStyle(color: secondaryColor),
+                                  )
+                                ],
                               );
                             } else if (snapshot.data!.enabled == true) {
                               switch (snapshot.data!.status) {
@@ -115,7 +187,11 @@ class _QiblaPageState extends State<QiblaPage> {
                                   return const QiblahCompassWidget();
 
                                 case LocationPermission.denied:
-                                  return const Text('Location service denied');
+                                  return const Center(
+                                      child: Text(
+                                    'Location service denied',
+                                    style: TextStyle(color: secondaryColor),
+                                  ));
                                 case LocationPermission.deniedForever:
                                   return const Text(
                                     'Location service denied forever, we cannot request permission',
@@ -124,8 +200,24 @@ class _QiblaPageState extends State<QiblaPage> {
                                   return const Text('Unknown Error');
                               }
                             } else {
-                              return const Center(
-                                child: Text('Location Service is disabled'),
+                              // return const Center(
+                              //   child: Text('Location Service is disabled'),
+                              // );
+                              return Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.height,
+                                    child: const CircularProgressIndicator(
+                                      color: secondaryColor,
+                                    ),
+                                  ),
+                                  const Text(
+                                    'Location not found or denied',
+                                    style: TextStyle(color: secondaryColor),
+                                  )
+                                ],
                               );
                             }
                           },
