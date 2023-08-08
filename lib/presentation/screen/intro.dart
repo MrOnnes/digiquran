@@ -4,7 +4,6 @@ import 'package:digiquran/data/controller/geolocator.dart';
 import 'package:digiquran/data/model/location_model.dart';
 import 'package:digiquran/data/model/schedule_model.dart';
 import 'package:digiquran/data/repository/repostiory.dart';
-import 'package:digiquran/presentation/screen/home_page.dart';
 import 'package:digiquran/presentation/widget/navigation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -136,7 +135,7 @@ class _IntroState extends State<Intro> {
       shalahSchedule.add(schedule.jadwal?.maghrib ?? '00:00');
       shalahSchedule.add(schedule.jadwal?.isya ?? '00:00');
       setState(() {
-        HomePage.shalahDataVariable = shalahSchedule;
+        // HomePage.shalahDataVariable = shalahSchedule;
       });
       return shalahSchedule;
     } catch (e) {
@@ -160,7 +159,7 @@ class _IntroState extends State<Intro> {
       });
       String address = await getAddress(latitude, longitude);
       setState(() {
-        HomePage.addressVariable = address;
+        // HomePage.addressVariable = address;
       });
       return address;
     } catch (e) {

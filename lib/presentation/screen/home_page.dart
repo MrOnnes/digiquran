@@ -8,21 +8,17 @@ import 'package:digiquran/data/controller/geolocator.dart';
 import 'package:digiquran/data/model/location_model.dart';
 import 'package:digiquran/data/model/schedule_model.dart';
 import 'package:digiquran/data/repository/repostiory.dart';
-import 'package:digiquran/presentation/widget/star_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeletons/skeletons.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   static const routeName = '/home-screen';
-  static String addressVariable = '';
-  static List shalahDataVariable = [];
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -31,113 +27,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool isLoading = true;
   String addressVar = '';
-  // String addressVar = HomePage.addressVariable;
   String timeId = '';
   List shalahData = [];
-  // List shalahData = HomePage.shalahDataVariable;
   HijriCalendar hijriToday = HijriCalendar.now();
   Stream<DateTime>? clockStream;
 
-  void checkPermission() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    LocationPermission permission;
-    bool? intro = (prefs.getBool('intro'));
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse) {
-      debugPrint('checkPermission location active');
-      await prefs.setBool('intro', true);
-      debugPrint('status prefs: ${intro.toString()}');
-    } else {
-      debugPrint('checkPermision else $permission');
-      await prominentDisclosure();
-      await prefs.setBool('intro', false);
-    }
-
-    // await prominentDisclosure();
-    loadDone();
-  }
-
-  Future<void> prominentDisclosure() async {
-    AlertDialog prominentDisclosureAlert = AlertDialog(
-      title: const Text("Location Permission"),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-              'Nusantara Muslim collectes location data to enable Prayer Time, & Qibla Direction even when the app is closed or not in use, and it also used to support advertising'),
-//               Accurate Prayer Times: Enable location permission to get precise prayer times for your current location, ensuring timely and accurate prayers.
-
-// Real-time Qibla Direction: Grant location access to determine the Qibla direction specific to your location, allowing you to perform prayers with confidence and accuracy.
-          SizedBox(
-            height: 8,
-          ),
-          // Text(
-          //   'Prayer Time:',
-          //   style: TextStyle(fontWeight: FontWeight.bold),
-          // ),
-          RichText(
-            text: const TextSpan(
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'Prayer Times: ',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(
-                  text:
-                      'Enable location permission to get precise prayer times for your current location, ensuring timely and accurate prayers.',
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          RichText(
-            text: const TextSpan(
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'Qibla Direction: ',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(
-                  text:
-                      'Grant location access to determine the Qibla direction specific to your location, allowing you to perform prayers with confidence and accuracy.',
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      actions: [
-        TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text("No, Thanks")),
-        ElevatedButton(
-            // onPressed: () => Navigator.of(context).pop(),
-            onPressed: () async {
-              await Geolocator.requestPermission()
-                  .then((value) => Navigator.of(context).pop());
-            },
-            child: const Text("Turn On")),
-      ],
-    );
-
-    await showDialog(
-        context: context, builder: (context) => prominentDisclosureAlert);
-    return;
-  }
-
   @override
   void initState() {
-    checkPermission();
-    // loadDone();
+    loadDone();
     super.initState();
   }
 
@@ -217,93 +114,6 @@ class _HomePageState extends State<HomePage> {
                   style: firaSansH2,
                 ),
                 const VerticalGap5(),
-                // Skeleton(
-                //   isLoading: isLoading,
-                //   duration: const Duration(seconds: 2),
-                //   themeMode: ThemeMode.light,
-                //   shimmerGradient: LinearGradient(
-                //     colors: [
-                //       tertiaryColor.withOpacity(.25),
-                //       tertiaryColor.withOpacity(.5),
-                //       tertiaryColor.withOpacity(.25),
-                //     ],
-                //     begin: const Alignment(-1.0, -0.5),
-                //     end: const Alignment(1.0, 0.5),
-                //     stops: const [0.0, 0.5, 1.0],
-                //     tileMode: TileMode.repeated,
-                //   ),
-                //   skeleton: const GridSkeleton(),
-                //   child: SizedBox(
-                //     width: double.infinity,
-                //     height: 86,
-                //     child: GridView.builder(
-                //       gridDelegate:
-                //           const SliverGridDelegateWithFixedCrossAxisCount(
-                //         crossAxisCount: 5,
-                //         crossAxisSpacing: 4,
-                //         mainAxisExtent: 86,
-                //       ),
-                //       padding: EdgeInsets.zero,
-                //       shrinkWrap: true,
-                //       itemCount: features.length,
-                //       itemBuilder: (context, index) {
-                //         return InkWell(
-                //           onTap: () {
-                //             // Function Button menu ada disini
-                //             if (index == 0) {
-                //               Navigator.pushNamed(context, featuresNav[0]).then(
-                //                   (value) => debugPrint(value.toString()));
-                //             } else if (index == 1) {
-                //               Navigator.pushNamed(
-                //                   context,
-                //                   featuresNav[1].then(
-                //                       (value) => debugPrint(value.toString())));
-                //             } else if (index == 2) {
-                //               Navigator.pushNamed(context, featuresNav[2]).then(
-                //                   (value) => debugPrint(value.toString()));
-                //             } else if (index == 4) {
-                //               Navigator.pushNamed(context, featuresNav[4]).then(
-                //                   (value) => debugPrint(value.toString()));
-                //             } else {
-                //               ScaffoldMessenger.of(context).showSnackBar(
-                //                 const SnackBar(
-                //                   content: Text('Coming Soon'),
-                //                 ),
-                //               );
-                //             }
-                //           },
-                //           child: Column(
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               Container(
-                //                 decoration: BoxDecoration(
-                //                   color: primaryColor,
-                //                   borderRadius: BorderRadius.circular(10),
-                //                 ),
-                //                 padding: const EdgeInsets.all(16),
-                //                 child: Icon(
-                //                   featuresIcon[index],
-                //                   color: secondaryColor,
-                //                   size: 24,
-                //                 ),
-                //               ),
-                //               const VerticalGap5(),
-                //               Expanded(
-                //                 child: Text(
-                //                   features[index],
-                //                   style: firaSansS3.copyWith(
-                //                     color: tertiaryColor,
-                //                   ),
-                //                   textAlign: TextAlign.center,
-                //                 ),
-                //               ),
-                //             ],
-                //           ),
-                //         );
-                //       },
-                //     ),
-                //   ),
-                // ),
                 Skeleton(
                   isLoading: isLoading,
                   duration: const Duration(seconds: 2),
@@ -343,10 +153,13 @@ class _HomePageState extends State<HomePage> {
                                         const SnackBar(
                                             content: Text('Coming Soon')));
                                   } else {
-                                    // Navigator.pushNamed(context, '/quran-page');
-                                    Navigator.pushNamed(
-                                        context, featuresNav[index]);
-                                    debugPrint('cliced ${featuresNav[index]} ');
+                                    //TODO PAKAI COMING SOON DULU SAMPAI DIAPPROVE GOOGLE
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Coming Soon')));
+                                    // Navigator.pushNamed(
+                                    //     context, featuresNav[index]);
+                                    // debugPrint('cliced ${featuresNav[index]} ');
                                   }
                                 },
                                 child: Container(

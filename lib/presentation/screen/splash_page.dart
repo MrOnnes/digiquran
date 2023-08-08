@@ -1,7 +1,6 @@
 import 'package:digiquran/common/color.dart';
 import 'package:digiquran/common/font.dart';
 import 'package:digiquran/common/gap.dart';
-import 'package:digiquran/presentation/screen/intro.dart';
 import 'package:digiquran/presentation/widget/navigation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -16,58 +15,119 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  // LocationPermission permission;
+  @override
+  void initState() {
+    super.initState();
+    checkPermission();
+  }
+
+  void checkPermission() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    LocationPermission permission;
+    bool? intro = (prefs.getBool('intro'));
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      debugPrint(
+          'checkPermission location active, status prefs: ${intro.toString()}');
+      prefs.setBool('intro', true);
+      loadData();
+    } else {
+      debugPrint('checkPermision else $permission');
+      await prominentDisclosure();
+      await prefs.setBool('intro', false);
+    }
+  }
+
+  Future<void> prominentDisclosure() async {
+    AlertDialog prominentDisclosureAlert = AlertDialog(
+      title: const Text("Location Permission"),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+              'Nusantara Muslim collectes location data to enable Prayer Time, & Qibla Direction even when the app is closed or not in use, and it also used to support advertising'),
+          const SizedBox(
+            height: 8,
+          ),
+          RichText(
+            text: const TextSpan(
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.black,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                    text: 'Prayer Times: ',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(
+                  text:
+                      'Enable location permission to get precise prayer times for your current location, ensuring timely and accurate prayers.',
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          RichText(
+            text: const TextSpan(
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.black,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                    text: 'Qibla Direction: ',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(
+                  text:
+                      'Grant location access to determine the Qibla direction specific to your location, allowing you to perform prayers with confidence and accuracy.',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              loadData();
+            },
+            child: const Text("No, Thanks")),
+        ElevatedButton(
+            onPressed: () async {
+              await Geolocator.requestPermission()
+                  .then((value) => Navigator.of(context).pop());
+              loadData();
+            },
+            child: const Text("Turn On")),
+      ],
+    );
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => WillPopScope(
+          onWillPop: () {
+            return Future.value(false);
+          },
+          child: prominentDisclosureAlert),
+    );
+  }
+
   void loadData() async {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // bool seen = (prefs.getBool('intro') ?? false);
-
-    // if (seen) {
-    //   await Future.delayed(const Duration(seconds: 3)).then((value) => {
-    //         Navigator.pushReplacementNamed(context, NavigationWidget.routeName),
-    //         // Navigator.pushReplacementNamed(context, Intro.routeName),
-    //       });
-    // } else {
-    //   // await prefs.setBool('intro', true);
-    //   await Future.delayed(const Duration(seconds: 3)).then((value) => {
-    //         // Navigator.pushReplacementNamed(context, NavigationWidget.routeName),
-    //         Navigator.pushReplacementNamed(context, Intro.routeName),
-    //       });
-    //   debugPrint('status _seen = $seen');
-    // }
-
-    await Future.delayed(const Duration(seconds: 3)).then(
+    await Future.delayed(const Duration(seconds: 2)).then(
       (value) => {
         Navigator.pushReplacementNamed(context, NavigationWidget.routeName),
       },
     );
-
-    // debugPrint('status _seen = $seen');
   }
 
-  // void checkPermission() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   LocationPermission permission;
-  //   permission = await Geolocator.checkPermission();
-  //   if (permission == LocationPermission.always ||
-  //       permission == LocationPermission.whileInUse) {
-  //     debugPrint('checkPermission location active');
-  //     await prefs.setBool('intro', true);
-  //   } else {
-  //     debugPrint('checkPermision else $permission');
-  //     await prefs.setBool('intro', false);
-  //   }
-  //   loadData();
-  // }
-
   @override
-  void initState() {
-    super.initState();
-    // permission = await Geolocator.checkPermission();
-    // if (permission == LocationPermission.always) {
-    //   await prefs.setBool('intro', true);
-    // }
-    // checkPermission();
-    loadData();
+  void dispose() {
+    super.dispose();
   }
 
   @override
