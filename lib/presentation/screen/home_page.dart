@@ -153,13 +153,13 @@ class _HomePageState extends State<HomePage> {
                                         const SnackBar(
                                             content: Text('Coming Soon')));
                                   } else {
-                                    //TODO PAKAI COMING SOON DULU SAMPAI DIAPPROVE GOOGLE
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            content: Text('Coming Soon')));
-                                    // Navigator.pushNamed(
-                                    //     context, featuresNav[index]);
-                                    // debugPrint('cliced ${featuresNav[index]} ');
+                                    // //TODO PAKAI COMING SOON DULU SAMPAI DIAPPROVE GOOGLE
+                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                    //     const SnackBar(
+                                    //         content: Text('Coming Soon')));
+                                    Navigator.pushNamed(
+                                        context, featuresNav[index]);
+                                    debugPrint('cliced ${featuresNav[index]} ');
                                   }
                                 },
                                 child: Container(
